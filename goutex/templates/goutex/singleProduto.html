@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div  class="single-container">
+	<div style="height: 300px; justify-content: center; align-content: center;" class="row-center">
+		<div class="col-lg-4">
+			<img class="thumbnail-single" src="{{product.imageURL}}">
+		</div>
+		<div class="col-lg-4">
+			<div class="box-element product">
+				
+				<a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Voltar p/ Produtos</a>
+
+				<br>
+				<br>
+				<h2><strong>{{product.name}}</strong></h2>
+				<br>
+				<h4 style="display: block;">{{product.description}}</h4>
+				<br>
+				<h4 style="display: block;"><strong>R${{product.price}}</strong></h4>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+{% endblock content %}

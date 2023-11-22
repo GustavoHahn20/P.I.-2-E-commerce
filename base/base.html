@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>goutex</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/images">
+
+</head>
+<body>
+    <div class="slogan">
+
+        <h6 class="h6">
+            SUA CASA | SEU TEMPO | SUA VIDA
+        </h6>
+
+    </div>
+
+<header>
+
+<div class="heading">
+
+    <div>
+        <a href="{% url "home" %}"><img src="https://goutex.com.br/cdn/shop/files/Logo-sem-fundo_260x@2x.png?v=1694292266" alt=""></a>
+    </div>
+
+
+  <div class="input-group mb-3">
+        <input class="pesquisar"type="text" class="form-control" placeholder="pesquisar..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <select class="select"id="search-product-type">
+        <option value="" selected="selected">Todas as categorias</option><option value="Aspirador">Aspirador</option><option value="Escova">Escova</option><option value="Ralador">Ralador</option></select>
+        <button class="buttonpesquisa" class="btn btn-outline-secondary" type="button" id="button-addon2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-QkXd-lxEaXRBjl6JuutbhcCq_BIxkd-23Lm-C9JkoiA_HA_j" alt=""></button>
+  </div>
+    
+  <div class="divpesquisar">
+    
+    <div class="divrastreio">
+      <a href="rastreio-de-mercadorias">
+        <img class="caminhao" src="stetic/imagen/caminhao-de-entrega.png" alt="">
+      </a>
+    
+      <a href="rastreio-de-mercadorias">
+        <p class="rastriop">Rastrear Pedido</p>
+      </a>
+    </div>
+  
+    <div class="carrinho-de-compra">
+      <a href="carinho-de-compras"><svg class="carrinho" focusable="false" class="icon icon--cart " viewBox="0 0 27 24" role="presentation">
+        <g transform="translate(0 1)" stroke-width="2" stroke="currentColor" fill="none" fill-rule="evenodd">
+          <circle stroke-linecap="square" cx="11" cy="20" r="2"></circle>
+          <circle stroke-linecap="square" cx="22" cy="20" r="2"></circle>
+          <path d="M7.31 5h18.27l-1.44 10H9.78L6.22 0H0"></path>
+        </g>
+        </svg>  
+      </a>
+      <a href="carinho-de-compras"><p> Carrinho</p></a>
+    </div>
+</div>
+</header>
+
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="static/imagen/GOUTEX_NOVA_2_-_Banner.webp" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="static/imagen/oferta.webp" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="static/imagen/oferta2.webp" style="width:100%">
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<div>
+
+  <div class="divcategoria">
+    <p>categorias</p>
+    <a href="pagina-de-categorias">ver mais</a>
+  </div>
+  
+  <div class="divcategoriaimg">
+    
+    <img src="static/imagen/limpeza.avif" alt="">
+    <p>Limpeza</p>
+
+    <img src="static/imagen/cozinhar.avif" alt="">
+    <p>Cozinha</p>
+
+    <img src="static/imagen/goutex ultra.avif" alt="">
+    <p>Goutex Ultra</p>
+
+  </div>
+</div>
+<script>
+
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace("active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+
+</script>
+<footer>
+
+</footer>
+</body>
+</html>
