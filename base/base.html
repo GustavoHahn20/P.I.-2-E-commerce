@@ -1,137 +1,226 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>goutex</title>
-    <link rel="stylesheet" href="static/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/images">
+	<title>Goutex</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+	<script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
 
 </head>
 <body>
-    <div class="slogan">
+    <header class="header">
+        <a href="{% url 'home' %}">
+            <img class="lojaLogo" src="https://goutex.com.br/cdn/shop/files/Logo-sem-fundo_260x@2x.png?v=1694292266" alt="Goutex">
+        </a>
 
-        <h6 class="h6">
-            SUA CASA | SEU TEMPO | SUA VIDA
-        </h6>
+        <form class="searchBar" action="{% url "search" %}" method="get">
+            <input 
+            type="search"
+            class="searchInput"
+            placeholder="Pesquisar..."
+            aria-label="Search"
+            id="search"
+            name="q"
+            value="{{searchValue}}">
+            <select class="select"id="search-product-type" name="q" action="{% url 'search' %}">
+                <option value="" selected="selected">Todos</option>
+                <option value="Quarto">Quarto</option>
+                <option value="Cozinha">Cozinha</option>
+                <option value="Sala">Sala</option>
+                <option value="Banheiro">Banheiro</option>
+            </select>
+            <button type="submit" class="searchButton">
+                <img style=" height: 20px ;" src="{% static 'images/lupa.png' %}" alt="lupa">
+            </button>
+        </form>
 
+        <div class="menuIcons">
+            <div class="menuIconsItem">
+                <a href="#">
+                    <img style=" height: 032px;" src="{% static 'images/caminhao-de-entrega.png' %}" alt="Rastreio de Encomendas">
+                </a>
+                <a style="color: #dba728;" href="{% url 'rastreio' %}">
+                    Rastrear Pedido
+                </a>
+            </div>
+            <div class="menuIconsItem">
+                <a href="{% url 'cart' %}">
+                    <img  id="cart-icon" src="{% static 'images/vista-lateral-vazia-do-carrinho-de-compras.png' %}">
+                </a>
+                <p id="cart-total">{{cartItems}}</p>
+                <a style="color: #dba728;" href="{% url 'cart' %}">
+                    Carrinho
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <br>
+        {% block content %}
+
+
+        {% endblock content %}
+    </div>
+	<div id="shopify-section-footer" class="shopify-section">
+        <footer class="footer" data-section-id="footer" data-section-type="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__wrapper">
+                <div class="footer__block-list">
+                    <div class="footer__block-item footer__block-item--text">
+                        <button class="footer__title heading h6" disabled="disabled" aria-expanded="false" aria-controls="block-footer-0" data-action="toggle-collapsible">
+                            <span>Contato</span>
+                            <span class="plus-button"></span>
+                        </button>
+      
+                        <div id="block-footer-0" class="footer__collapsible">
+                            <div class="footer__collapsible-content">
+                                <div class="rte">
+                                <p>E-mail: sac@goutex.com.br</p>
+                                <p>WhatsApp: (48) 98858-3747</p>
+                                <p></p>
+                                <p><a href="#" title="Fale Conosco">Fale conosco</a></p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__block-item footer__block-item--links">
+                    <button class="footer__title heading h6" disabled="disabled" aria-expanded="false" aria-controls="block-footer-1" data-action="toggle-collapsible">
+                        <span>Menu de rodapé</span>
+                        <span class="plus-button"></span>
+                    </button>
+      
+                    <div id="block-footer-1" class="footer__collapsible">
+                        <div class="footer__collapsible-content">
+                            <ul class="footer__linklist list--unstyled" role="list">
+                                <li>
+                                    <a href="#" class="footer__link-item link">Sobre nós</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer__link-item link">Política de Reembolso</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer__link-item link">Termos de Serviço</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer__link-item link">Política de Privacidade</a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <aside class="footer__aside">
+                <div class="footer__aside-item footer__aside-item--localization hidden-pocket">
+                    <p class="hidden-pocket">© 2023 Loja Goutex<br> Todos os direitos reservados</p>
+                </div>
+                <div class="footer__aside-item footer__aside-item--social">
+                    <p class="footer__aside-title">Siga-nos</p>
+      
+                    <ul class="social-media__item-list  list--unstyled" role="list">
+                        <li class="social-media__item social-media__item--facebook">
+                            <a href="https://www.facebook.com/profile.php?id=61551283852416" target="_blank" rel="noopener" aria-label="Siga-nos em Facebook" aria-describedby="a11y-new-window-message"><svg focusable="false" class="icon icon--facebook " viewBox="0 0 30 30">
+                            <path d="M15 30C6.71572875 30 0 23.2842712 0 15 0 6.71572875 6.71572875 0 15 0c8.2842712 0 15 6.71572875 15 15 0 8.2842712-6.7157288 15-15 15zm3.2142857-17.1429611h-2.1428678v-2.1425646c0-.5852979.8203285-1.07160109 1.0714928-1.07160109h1.071375v-2.1428925h-2.1428678c-2.3564786 0-3.2142536 1.98610393-3.2142536 3.21449359v2.1425646h-1.0714822l.0032143 2.1528011 1.0682679-.0099086v7.499969h3.2142536v-7.499969h2.1428678v-2.1428925z" fill="currentColor" fill-rule="evenodd"></path>
+                            </svg></a>
+                        </li>
+      
+          
+                        <li class="social-media__item social-media__item--instagram">
+                            <a href="https://instagram.com/lojagoutex" target="_blank" rel="noopener" aria-label="Siga-nos em Instagram" aria-describedby="a11y-new-window-message"><svg focusable="false" class="icon icon--instagram " role="presentation" viewBox="0 0 30 30">
+                            <path d="M15 30C6.71572875 30 0 23.2842712 0 15 0 6.71572875 6.71572875 0 15 0c8.2842712 0 15 6.71572875 15 15 0 8.2842712-6.7157288 15-15 15zm.0000159-23.03571429c-2.1823849 0-2.4560363.00925037-3.3131306.0483571-.8553081.03901103-1.4394529.17486384-1.9505835.37352345-.52841925.20532625-.9765517.48009406-1.42331254.926823-.44672894.44676084-.72149675.89489329-.926823 1.42331254-.19865961.5111306-.33451242 1.0952754-.37352345 1.9505835-.03910673.8570943-.0483571 1.1307457-.0483571 3.3131306 0 2.1823531.00925037 2.4560045.0483571 3.3130988.03901103.8553081.17486384 1.4394529.37352345 1.9505835.20532625.5284193.48009406.9765517.926823 1.4233125.44676084.446729.89489329.7214968 1.42331254.9268549.5111306.1986278 1.0952754.3344806 1.9505835.3734916.8570943.0391067 1.1307457.0483571 3.3131306.0483571 2.1823531 0 2.4560045-.0092504 3.3130988-.0483571.8553081-.039011 1.4394529-.1748638 1.9505835-.3734916.5284193-.2053581.9765517-.4801259 1.4233125-.9268549.446729-.4467608.7214968-.8948932.9268549-1.4233125.1986278-.5111306.3344806-1.0952754.3734916-1.9505835.0391067-.8570943.0483571-1.1307457.0483571-3.3130988 0-2.1823849-.0092504-2.4560363-.0483571-3.3131306-.039011-.8553081-.1748638-1.4394529-.3734916-1.9505835-.2053581-.52841925-.4801259-.9765517-.9268549-1.42331254-.4467608-.44672894-.8948932-.72149675-1.4233125-.926823-.5111306-.19865961-1.0952754-.33451242-1.9505835-.37352345-.8570943-.03910673-1.1307457-.0483571-3.3130988-.0483571zm0 1.44787387c2.1456068 0 2.3997686.00819774 3.2471022.04685789.7834742.03572556 1.2089592.1666342 1.4921162.27668167.3750864.14577303.6427729.31990322.9239522.60111439.2812111.28117926.4553413.54886575.6011144.92395217.1100474.283157.2409561.708642.2766816 1.4921162.0386602.8473336.0468579 1.1014954.0468579 3.247134 0 2.1456068-.0081977 2.3997686-.0468579 3.2471022-.0357255.7834742-.1666342 1.2089592-.2766816 1.4921162-.1457731.3750864-.3199033.6427729-.6011144.9239522-.2811793.2812111-.5488658.4553413-.9239522.6011144-.283157.1100474-.708642.2409561-1.4921162.2766816-.847206.0386602-1.1013359.0468579-3.2471022.0468579-2.1457981 0-2.3998961-.0081977-3.247134-.0468579-.7834742-.0357255-1.2089592-.1666342-1.4921162-.2766816-.37508642-.1457731-.64277291-.3199033-.92395217-.6011144-.28117927-.2811793-.45534136-.5488658-.60111439-.9239522-.11004747-.283157-.24095611-.708642-.27668167-1.4921162-.03866015-.8473336-.04685789-1.1014954-.04685789-3.2471022 0-2.1456386.00819774-2.3998004.04685789-3.247134.03572556-.7834742.1666342-1.2089592.27668167-1.4921162.14577303-.37508642.31990322-.64277291.60111439-.92395217.28117926-.28121117.54886575-.45534136.92395217-.60111439.283157-.11004747.708642-.24095611 1.4921162-.27668167.8473336-.03866015 1.1014954-.04685789 3.247134-.04685789zm0 9.26641182c-1.479357 0-2.6785873-1.1992303-2.6785873-2.6785555 0-1.479357 1.1992303-2.6785873 2.6785873-2.6785873 1.4793252 0 2.6785555 1.1992303 2.6785555 2.6785873 0 1.4793252-1.1992303 2.6785555-2.6785555 2.6785555zm0-6.8050167c-2.2790034 0-4.1264612 1.8474578-4.1264612 4.1264612 0 2.2789716 1.8474578 4.1264294 4.1264612 4.1264294 2.2789716 0 4.1264294-1.8474578 4.1264294-4.1264294 0-2.2790034-1.8474578-4.1264612-4.1264294-4.1264612zm5.2537621-.1630297c0-.532566-.431737-.96430298-.964303-.96430298-.532534 0-.964271.43173698-.964271.96430298 0 .5325659.431737.964271.964271.964271.532566 0 .964303-.4317051.964303-.964271z" fill="currentColor" fill-rule="evenodd"></path>
+                            </svg></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__aside-item footer__aside-item--payment">
+                    <p class="footer__aside-title"></p>
+      
+                    <div class="bandeiras-align">
+                    <p>Formas de pagamento</p>
+                    <img src="https://cdn.shopify.com/s/files/1/0655/0696/7773/files/BANDERIAS.png?v=1669918376" width="320px" a-src="https://cdn.shopify.com/s/files/1/0655/0696/7773/files/BANDERIAS.png?v=1669918376">
+                            <style>
+      
+                    .bandeiras-align {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+      
+                    .bandeiras-align>p {
+                        margin-bottom: 0;
+                    }
+                
+                                </style>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </footer>
     </div>
 
-<header>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
-<div class="heading">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-    <div>
-        <a href="{% url "home" %}"><img src="https://goutex.com.br/cdn/shop/files/Logo-sem-fundo_260x@2x.png?v=1694292266" alt=""></a>
-    </div>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
-  <div class="input-group mb-3">
-        <input class="pesquisar"type="text" class="form-control" placeholder="pesquisar..." aria-label="Recipient's username" aria-describedby="button-addon2">
-        <select class="select"id="search-product-type">
-        <option value="" selected="selected">Todas as categorias</option><option value="Aspirador">Aspirador</option><option value="Escova">Escova</option><option value="Ralador">Ralador</option></select>
-        <button class="buttonpesquisa" class="btn btn-outline-secondary" type="button" id="button-addon2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-QkXd-lxEaXRBjl6JuutbhcCq_BIxkd-23Lm-C9JkoiA_HA_j" alt=""></button>
-  </div>
-    
-  <div class="divpesquisar">
-    
-    <div class="divrastreio">
-      <a href="rastreio-de-mercadorias">
-        <img class="caminhao" src="stetic/imagen/caminhao-de-entrega.png" alt="">
-      </a>
-    
-      <a href="rastreio-de-mercadorias">
-        <p class="rastriop">Rastrear Pedido</p>
-      </a>
-    </div>
-  
-    <div class="carrinho-de-compra">
-      <a href="carinho-de-compras"><svg class="carrinho" focusable="false" class="icon icon--cart " viewBox="0 0 27 24" role="presentation">
-        <g transform="translate(0 1)" stroke-width="2" stroke="currentColor" fill="none" fill-rule="evenodd">
-          <circle stroke-linecap="square" cx="11" cy="20" r="2"></circle>
-          <circle stroke-linecap="square" cx="22" cy="20" r="2"></circle>
-          <path d="M7.31 5h18.27l-1.44 10H9.78L6.22 0H0"></path>
-        </g>
-        </svg>  
-      </a>
-      <a href="carinho-de-compras"><p> Carrinho</p></a>
-    </div>
-</div>
-</header>
-
-
-<div class="slideshow-container">
-
-<div class="mySlides fade">
-  <div class="numbertext">1 / 3</div>
-  <img src="static/imagen/GOUTEX_NOVA_2_-_Banner.webp" style="width:100%">
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">2 / 3</div>
-  <img src="static/imagen/oferta.webp" style="width:100%">
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">3 / 3</div>
-  <img src="static/imagen/oferta2.webp" style="width:100%">
-</div>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-</div>
-
-<div>
-
-  <div class="divcategoria">
-    <p>categorias</p>
-    <a href="pagina-de-categorias">ver mais</a>
-  </div>
-  
-  <div class="divcategoriaimg">
-    
-    <img src="static/imagen/limpeza.avif" alt="">
-    <p>Limpeza</p>
-
-    <img src="static/imagen/cozinhar.avif" alt="">
-    <p>Cozinha</p>
-
-    <img src="static/imagen/goutex ultra.avif" alt="">
-    <p>Goutex Ultra</p>
-
-  </div>
-</div>
-<script>
-
-let slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace("active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
-}
-
-</script>
-<footer>
-
-</footer>
+	<script type="text/javascript" src="{% static 'js/carrinho.js' %}"></script>
 </body>
 </html>
