@@ -16,7 +16,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-	return render(request, 'teste/home.html')
+	return render(request, 'goutex/home.html')
 
 
 def store(request):
@@ -28,7 +28,7 @@ def store(request):
 
 	products = Product.objects.all()
 	context = {'products':products, 'cartItems':cartItems}
-	return render(request, 'teste/produtos.html', context)
+	return render(request, 'goutex/produtos.html', context)
 
 def search(request):
     searchValue = request.GET.get('q','').strip()
@@ -49,7 +49,7 @@ def search(request):
         'products': products,
         'searchValue' : searchValue
     }
-    return render(request, 'teste/produtos.html', context)
+    return render(request, 'goutex/produtos.html', context)
 
 
 def singleProduto(request, productId):
@@ -64,7 +64,7 @@ def singleProduto(request, productId):
 	products = Product.objects.all()
 	context = {'product':singleproduto, 'cartItems':cartItems}
 	# id = { 'product': singleProduto }
-	return render(request, 'teste/singleProduto.html', context)
+	return render(request, 'goutex/singleProduto.html', context)
 
 
 def cart(request):
@@ -75,7 +75,7 @@ def cart(request):
 	items = data['items']
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
-	return render(request, 'teste/carrinho.html', context)
+	return render(request, 'goutex/carrinho.html', context)
 
 def rastreio(request):
 	data = cartData(request)
@@ -85,7 +85,7 @@ def rastreio(request):
 	items = data['items']
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
-	return render(request, 'teste/rastreio.html', context)
+	return render(request, 'goutex/rastreio.html', context)
 
 def checkout(request):
 	data = cartData(request)
@@ -95,7 +95,7 @@ def checkout(request):
 	items = data['items']
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
-	return render(request, 'teste/checkout.html', context)
+	return render(request, 'goutex/checkout.html', context)
 
 def updateItem(request):
 	data = json.loads(request.body)
