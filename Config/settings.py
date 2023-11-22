@@ -81,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': 'fCCh-d-Hg3cg2eagag2C3-6ABbhd65eG',
+        'PASSWORD': '--g4A62h4eea5FHHCHh31FAf6hCGAAeb',
         'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '20323',
+        'PORT': '20951',
 
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
