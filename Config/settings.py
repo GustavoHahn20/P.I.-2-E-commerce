@@ -79,7 +79,14 @@ WSGI_APPLICATION = 'Config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': 'fCCh-d-Hg3cg2eagag2C3-6ABbhd65eG',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '20323',
+
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

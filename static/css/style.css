@@ -1,0 +1,159 @@
+*{
+    
+    margin: 0;
+    padding: 0;
+}
+
+.slogan{
+    background-color: #dba728;
+    text-align: center;
+    height: 2em;
+    padding: 5px;
+}
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.divpesquisar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header a img{
+    height: 82px;
+    width: 260px;
+    margin-left: 10px;
+}
+button img{
+    width: 35.6px;
+    height: 42px;
+    border-top-right-radius: 20px;
+    border-end-end-radius: 20px;
+}
+.buttonpesquisa{
+    height: 44px;
+    border-top-right-radius: 20px;
+    border-end-end-radius: 20px;
+   
+}
+.pesquisar{
+    border-top-left-radius: 20px;
+    border-end-start-radius: 20px;
+    width: 448px;
+    height: 44px;
+    padding-left: 15px;
+    margin-left: 20px;
+  justify-content: space-between
+}
+.carrinho{
+    width: 27px;
+    height: 24px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+.carrinho-de-compra{
+  justify-content: space-between;
+  margin: auto;+
+  a:hover{
+    color: #dba728;
+  }
+}
+.caminhao{
+  width: 27px;
+  height: 27px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+  
+.select{
+    height: 44px;
+}
+a:link{
+  text-decoration: none;
+  color: black;
+}
+a:hover{
+  text-decoration: none;
+  color: gold;
+}
+.divrastreio{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ratreiop{
+  margin-right: 10px;
+}
+.divslide{
+  margin: 20px;
+}
+/* body */
+
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  margin-top: 5%;
+}
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+
+.divcategoria{
+  justify-content: space-between;
+  display: flex;
+  margin-top: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.divcategoriaimg{
+  width: 176px;
+  height: 176px;
+  display: flex;
+  justify-content: center;;
+}
+a:hover{
+  text-decoration: none;
+  color: #dba;
+}
